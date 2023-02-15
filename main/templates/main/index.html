@@ -1,0 +1,68 @@
+{% extends 'main/base.html'%}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <div class="flex justify-between">
+        <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 75%;">
+            <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
+                <h2 class="mb-12 text-2xl text-center">New Books:</h2>
+            
+                <div class="mt-6 px-6 py-3 bg-white rounded-xl gap-3">
+                    {% for book in page_obj %}
+                        <table>
+                            <tr>
+                                <td class="gap-6">
+                                    <a href="{% url 'book:detail' book.id %}"><img src="{{ book.image.url }}" width="230" height="300" class="rounded-t-xl" style="padding-right: 50px;"></a>
+                                </td>
+                                <td class="gap-3">
+                                    <h2 class="text-2xl text-center">{{ book.title }} written by {{ book.author }}</h2>
+                                    <h3 class="text-gray-500">Language: {{ book.language }} for Age: {{ book.age_group }}</h3>
+                                    <h3 class="text-gray-500">Genre: {{ book.genre }}</h3>
+                                    <h3 class="text-gray-500">Description: {{ book.description }}</h3>
+                                </td>
+                            </tr>
+                        </table>    
+                    {% endfor %}
+                </div>
+
+                <div class="mt-6 px-6 py-6 bg-white rounded-xl">
+                    <div class="flex justify-between">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% else %}
+                            <span class="opacity-50 cursor-not-allowed">previous</span>
+                        {% endif %}
+
+                        <div class="text-gray-500">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% else %}
+                            <span class="opacity-50 cursor-not-allowed">next</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 px-6 py-3 bg-white rounded-xl gap-3" style="float: left; width: 25%;">
+            <form method="GET">
+                <input type="text" name="q" class="rounded-l-lg py-2 px-4 border border-gray-400" placeholder="Search...">
+                <p>Choose category for search</p>
+                    <div><input type="radio" id="title" name="category" value="title" checked>
+                    <label for="title">Title</label></div>
+                    <div><input type="radio" id="author" name="category" value="author">
+                    <label for="author">Author</label></div>
+                    <div><input type="radio" id="language" name="category" value="language">
+                    <label for="language">Language</label></div>
+                    <div><input type="radio" id="genre" name="category" value="genre">
+                    <label for="genre">Genre</label></div>
+                    <div><input type="radio" id="isbn" name="category" value="isbn">
+                    <label for="isbn">ISBN</label></div>
+                
+                <button type="submit" class="gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Search</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
