@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from book.models import Book
 from .forms import SignupForm
+from django.contrib.auth import logout
 
 def index(request):
     query = request.GET.get('q')
@@ -45,3 +46,7 @@ def signup(request):
     return render(request, 'main/signup.html',{
         'form':form
     })
+
+def logOut(request):
+    logout(request)
+    return redirect('main:index')
