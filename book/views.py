@@ -28,3 +28,10 @@ def new(request):
         'form': form,
         'title': 'New Book',
     })
+
+@login_required
+def delete(request, pk):
+    book = get_object_or_404(Book, pk=pk, owner_user_id=request.user)
+    book.delete()
+
+    return redirect('bookshelf:index')
