@@ -17,7 +17,7 @@ def new(request):
 
         if form.is_valid():
             book = form.save(commit=False)
-            book.owner_user_id = request.user
+            #book.owner_user_id = request.user
             book.save()
 
             return redirect('book:detail', pk=book.id)
