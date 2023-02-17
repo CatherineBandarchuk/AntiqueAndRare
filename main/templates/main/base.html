@@ -16,8 +16,7 @@
             <div class="space-x-6">
                 {% if request.user.is_authenticated%}
                     <h3 class="mb-6 font-semibold text-gray-600">Welcome Back, {{user.username}} !</h3> 
-                    <a href="{% url 'book:new' %}" class="px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Add Book</a>
-                    <a href="#" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">My Bookshelf</a> 
+                    <a href="{% url 'bookshelf:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">My Bookshelf</a> 
                     <a href="#" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Trades / Offers</a>
                     <a href="{% url 'account:logout' %}" class="px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Log Out</a> 
                 {% else %}

@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'main',
     'book',
     'account',
+<<<<<<< HEAD
+=======
+    'bookshelf',
+>>>>>>> 1f69a2a8b459bc3ebda6c91d29248cf5b2828ae4
 ]
 
 MIDDLEWARE = [
@@ -60,7 +64,11 @@ ROOT_URLCONF = 'book_trader.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [BASE_DIR / 'templates'],
+=======
+        'DIRS': [BASE_DIR/'templates'],
+>>>>>>> 1f69a2a8b459bc3ebda6c91d29248cf5b2828ae4
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
