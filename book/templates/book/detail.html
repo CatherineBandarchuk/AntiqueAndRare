@@ -30,7 +30,7 @@
             <div class="mt-6 p-6 bg-white rounded-xl">
                 <p>This is your book!</p>
 
-                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Edit</a>
+                <a href="{% url 'book:edit' book.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Edit</a>
                 <a href="{% url 'book:delete' book.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Delete</a>
             </div>
         {% else %}  
