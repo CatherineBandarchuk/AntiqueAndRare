@@ -1,12 +1,15 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from .models import CustomUser
 
-class SignupForm(UserCreationForm):
+
+class CustomUserCreationForm(UserCreationForm):
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-    
+        model = CustomUser
+        # fields = '__all__'
+        # fields = UserCreationForm.Meta.fields + ('zipcode',)
+        fields = ('username', 'email', 'password1', 'password2', 'zipcode')
+
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
         'class': 'w-full py-4 px-6 rounded-xl'
@@ -23,6 +26,11 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Repeat password',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
+    zipcode = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your zipcode',
+        'class': 'w-full py-4 px-6 rounded-xl'
+    }))
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={

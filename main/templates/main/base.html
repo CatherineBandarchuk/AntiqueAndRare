@@ -18,10 +18,10 @@
                     <h3 class="mb-6 font-semibold text-gray-600">Welcome Back, {{user.username}} !</h3> 
                     <a href="{% url 'bookshelf:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">My Bookshelf</a> 
                     <a href="#" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Trades / Offers</a>
-                    <a href="{% url 'main:logout' %}" class="px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Log Out</a> 
+                    <a href="{% url 'account:logout' %}" class="px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Log Out</a> 
                 {% else %}
-                    <a href="{% url 'main:signup' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Sign Up</a> 
-                    <a href="{% url 'main:login' %}" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Log In</a>
+                    <a href="{% url 'account:signup' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Sign Up</a> 
+                    <a href="{% url 'account:login' %}" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Log In</a>
                 {% endif %}
             </div>
         </nav>

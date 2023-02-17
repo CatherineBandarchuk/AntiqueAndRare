@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 from book.models import Book
-from .forms import SignupForm
-from django.contrib.auth import logout
+
 
 def index(request):
     query = request.GET.get('q')
@@ -31,22 +30,3 @@ def index(request):
 
 def about(request):
     return render( request, 'main/about.html')
-
-def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-
-            return redirect('/login')
-    else:
-        form = SignupForm()
-
-    return render(request, 'main/signup.html',{
-        'form':form
-    })
-
-def logOut(request):
-    logout(request)
-    return redirect('main:index')
