@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Book
-from .forms import NewBookForm
+from .forms import NewBookForm, EditBookForm
 
 def detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
@@ -28,6 +28,26 @@ def new(request):
         'form': form,
         'title': 'New Book',
     })
+
+@login_required
+def edit(request, pk):
+    book = get_object_or_404(Book, pk=pk, owner_user_id=request.user)
+    
+    if request.method == 'POST':
+        form = EditBookForm(request.POST, request.FILES, instance=book)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('book:detail', pk=book.id)
+    else:
+        form = EditBookForm(instance=book)
+
+    return render(request, 'book/form.html', {
+        'form': form,
+        'title': 'New Book',
+    })
+
 
 @login_required
 def delete(request, pk):
