@@ -33,5 +33,5 @@ def new(request):
 def delete(request, pk):
     book = get_object_or_404(Book, pk=pk, owner_user_id=request.user)
     book.delete()
-
+    print("delete")
     return redirect('bookshelf:index')
