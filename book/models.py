@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.db import models
 
 class Book(models.Model):
@@ -11,6 +11,7 @@ class Book(models.Model):
     image = models.ImageField(upload_to='book_images', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     #owner_user_id = models.ForeignKey(User, related_name='books', on_delete=models.CASCADE)
+    owner_user_id = models.ForeignKey('account.CustomUser', related_name='books', on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
 
     def __str__(self):
