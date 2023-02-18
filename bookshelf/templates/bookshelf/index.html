@@ -6,8 +6,15 @@
     <div class="flex justify-between">
         <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 80%;">
             <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
-                <h2 class="mb-12 text-2xl text-center">My Books:</h2>
-            
+                <h2 class="mb-3 text-2xl text-center">All Books</h2>
+                
+                <div class="flex gap-6 text-gray-500 px-3">
+                    <p><strong>Sort By:</strong> </p>
+                    <a href="?sort=-added_at" id="new_sort" data-sort="added_at">Newest ⬇️</a>
+                    <a href="?sort=title" id="title_sort" data-sort="title">Title ⬇️</a>
+                    <a href="?sort=author" id="author_sort" data-sort="author">Author ⬇️</a>
+                </div>
+                
                 <div class="mt-6 px-6 py-3 bg-white rounded-xl gap-3">
                     {% for book in page_obj %}
                     <div class="rounded-xl border border-gray-200 p-2">

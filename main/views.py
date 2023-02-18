@@ -33,6 +33,12 @@ def index(request):
     else:
         books = Book.objects.filter(available=True)
     
+    sort_by = request.GET.get('sort', '-added_at')
+    if sort_by:
+        books = Book.objects.filter(owner_user_id = request.user).order_by(sort_by)
+    else:
+        books = Book.objects.filter(owner_user_id = request.user)
+    
     paginator = Paginator(books, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
