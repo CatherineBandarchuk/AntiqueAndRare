@@ -31,10 +31,10 @@
                                     <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ book.genre }}</h3>
                                     <h3 class="text-gray-500 px-3"><strong>Description: </strong>{{ book.description }}</h3>
                                 </td>
-                                <tb class="gap-3 text-center" style="float: right;">
-                                    <div class="gap-3 py-6 mt-6"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Details...</a></div>
-                                    <div class="gap-3 py-6 mt-6"><a href="{% url 'book:edit' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Edit Book</a></div>
-                                    <div class="gap-3 py-6 mt-6"><a href="{% url 'book:delete' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Delete!</a></div>
+                                <tb class="text-center" style="float: right;">
+                                    <div class="py-6 mt-3"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Details...</a></div>
+                                    <div class="py-6 mt-3"><a href="{% url 'book:edit' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Edit Book</a></div>
+                                    <div class="py-6 mt-3"><a href="{% url 'book:delete' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Delete!</a></div>
                                 </tb>
                             </tr>
                         </table>
