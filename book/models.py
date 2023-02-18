@@ -1,4 +1,3 @@
-# from django.contrib.auth.models import User
 from django.db import models
 
 class AgeGroupCategory(models.Model):
@@ -18,10 +17,11 @@ class Book(models.Model):
     genre = models.CharField(max_length=255)
     language = models.CharField(max_length=255)
     isbn = models.CharField(max_length=255, blank=True, null=True)
-    age_group = models.CharField(max_length=255)    
+    age_group = models.ForeignKey(AgeGroupCategory, related_name='books', on_delete=models.CASCADE)    
     image = models.ImageField(upload_to='book_images', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     owner_user_id = models.ForeignKey('account.CustomUser', related_name='books', on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
     available = models.BooleanField(default=True)
 
     def __str__(self):

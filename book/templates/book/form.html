@@ -9,7 +9,30 @@
     {% csrf_token %}
 
     <div class="space-y-4">
-        {{ form.as_p }}
+        <div class="mb-4">
+            {{ form.title }}
+        </div>
+        <div class="mb-4">
+            {{ form.author }}
+        </div>
+        <div class="mb-4">
+            {{ form.genre }}
+        </div>
+        <div class="mb-4">
+            {{ form.language }}
+        </div>
+        <div class="mb-4">
+            {{ form.isbn }}
+        </div>
+        <div class="mb-4">
+            {{ form.age_group }}
+        </div>
+        <div class="mb-4">
+            {{ form.description }}
+        </div>
+        <div class="mb-4">
+            {{ form.image }}
+        </div>
     </div>
 
     {% if form.errors or form.non_field_errors %}
