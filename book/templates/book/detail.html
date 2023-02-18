@@ -3,38 +3,36 @@
 {% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ book.image.url }}" class="rounded-xl">
+<div class="grid grid-cols-4 ">
+    <div class="col-span-1 px-6">
+        <img src="{{ book.image.url }}" class="rounded-xl border border-gray-200" style="width:100%">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-3xl text-green-700">{{ book.title }} written by {{ book.author }}</h1>
-        <h2 class="text-gray-500"><strong>Traider: </strong>{{ book.owner_user_id.username }}</h2>
-    
+    <div class="col-span-3 bg-gray-100 rounded-xl py-3 px-6">
+        <h2 class="text-gray-800 text-2xl py-3">{{ book.title }}</h2>
+        <h3 class="text-gray-500 px-3"><strong>Author:  </strong>{{ book.author }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Language:  </strong>{{ book.language }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Age Group:  </strong>{{ book.age_group }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Genre:  </strong>{{ book.genre }}</h3>
         {% if book.description %}
-        <p class="text-gray-700">
-            <strong class="text-gray-500">Description:</strong><br>
-            {{ book.description }}
-        </p>
+        <h3 class="text-gray-500 px-3"><strong>Description:  </strong>{{ book.description }}</h3>
         {% endif %}
 
         {% if book.isbn %}
-            <p class="text-gray-700">
-                <strong class="text-gray-500">ISBN:</strong><br>
-                {{ book.isbn }}
-            </p>
+        <h3 class="text-gray-500 px-3"><strong>ISBN: </strong>{{ book.isbn }}</h3>
         {% endif %}
-
-        {% if request.user == book.owner_user_id%}
-            <div class="mt-6 p-6 bg-white rounded-xl">
-                <p>This is your book!</p>
-
-                <a href="{% url 'book:edit' book.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Edit</a>
-                <a href="{% url 'book:delete' book.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Delete</a>
-            </div>
-        {% else %}  
-            <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Trade for this book</a>
+        
+        <div class="mt-2 p-6 bg-white rounded-xl">
+            <h2 class="text-gray-500 px-3 text-1xl"><strong>Traider: </strong>{{ book.owner_user_id.username }}</h2>
+            <h2 class="text-gray-500 px-3 text-1xl"><strong>Book Owner's Zicode: </strong>{{ book.owner_user_id.zipcode }}</h2>        
+            {% if request.user == book.owner_user_id%}
+                <p class="p-3 text-xl text-green-700">This is your book! You can:</p>
+                <a href="{% url 'book:edit' book.id %}" class="text-center inline-block mt-6 px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="width:150px">Edit</a>
+                <a href="{% url 'book:delete' book.id %}" class="text-center inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="width:150px">Delete</a>
+            {% else %} 
+                <p class="px-3 text-xl text-green-700">It looks very interesting! You can:</p>
+                <a href="#" class="inline-block mt-12 px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white">Trade for this book</a>
+        </div>
         {% endif %}
     </div>
 </div>

@@ -1,10 +1,11 @@
 from django import forms 
 
-from .models import Book
+from .models import Book, AgeGroupCategory
 
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
+        age_group = forms.ModelChoiceField(queryset=AgeGroupCategory.objects.all(), empty_label=None)
         fields = ('title', 'author', 'genre', 'language', 'isbn', 'age_group', 'image','description')
 
         widgets= {
@@ -23,8 +24,7 @@ class NewBookForm(forms.ModelForm):
             'isbn':  forms.TextInput(attrs={
                 'placeholder': 'ISBN',
                 'class': 'w-full py-4 px-6 rounded-xl border'}),
-            'age_group':  forms.TextInput(attrs={
-                'placeholder': 'Age Group',
+            'age_group':  forms.Select(attrs={
                 'class': 'w-full py-4 px-6 rounded-xl border'}),
             'description':  forms.Textarea(attrs={
                 'placeholder': 'Description',
@@ -36,6 +36,7 @@ class NewBookForm(forms.ModelForm):
 class EditBookForm(forms.ModelForm):
     class Meta:
         model = Book
+        age_group = forms.ModelChoiceField(queryset=AgeGroupCategory.objects.all(), empty_label=None)
         fields = ('title', 'author', 'genre', 'language', 'isbn', 'age_group', 'image','description')
 
         widgets= {
@@ -54,8 +55,7 @@ class EditBookForm(forms.ModelForm):
             'isbn':  forms.TextInput(attrs={
                 'placeholder': 'ISBN',
                 'class': 'w-full py-4 px-6 rounded-xl border'}),
-            'age_group':  forms.TextInput(attrs={
-                'placeholder': 'Age Group',
+            'age_group':  forms.Select(attrs={
                 'class': 'w-full py-4 px-6 rounded-xl border'}),
             'description':  forms.Textarea(attrs={
                 'placeholder': 'Description',
