@@ -10,31 +10,38 @@
     </head>
 
     <body>
-        <nav class="py-6 px-6 flex justify-between item-center border-b border-gray-300">
-            <a href="/" class="text-xl font-semibold">Antique And Rare</a>
-
-            <div class="space-x-6">
+        <nav class="mt-2 py-2 px-6 flex justify-between item-center border-b border-gray-300">
+            <a href="/" class="mt-6 text-xl font-semibold">Antique And Rare</a>
+            <div class="class=mt-6 px-6 py-6 bg-white rounded-xl gap-3 border border-gray-200">
                 {% if request.user.is_authenticated%}
                     <h3 class="mb-6 font-semibold text-gray-600">Welcome Back, {{user.username}} !</h3> 
-                    <a href="{% url 'bookshelf:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">My Bookshelf</a> 
-                    <a href="#" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Trades / Offers</a>
-                    <a href="{% url 'account:logout' %}" class="px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Log Out</a> 
+                    <div class="flex justify-between gap-3 text-center">
+                        <div class=" px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:200px">
+                            <a href="{% url 'bookshelf:index' %}" >My Bookshelf</a></div>
+                        <div class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:200px">
+                            <a href="#" >Trades / Offers</a></div>
+                        <div class="px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:200px">
+                            <a href="{% url 'account:logout' %}" >Log Out</a></div>
+                    </div>
                 {% else %}
-                    <a href="{% url 'account:signup' %}" class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white ">Sign Up</a> 
-                    <a href="{% url 'account:login' %}" class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Log In</a>
+                    <div class="flex justify-between gap-3 text-center">
+                        <div class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
+                            <a href="{% url 'account:signup' %}" >Sign Up</a></div>
+                        <div class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
+                            <a href="{% url 'account:login' %}" >Log In</a></div>
+                    </div>
                 {% endif %}
             </div>
         </nav>
 
-        <header class="px-6 py-20 masthead" style="background-image: url('{% static 'main/images/books_header.jpg'%}'); margin-bottom: 3px;"></header>
+        <header class="px-6 py-20 masthead border border-gray-200" style="background-image: url('{% static 'main/images/books_header.jpg'%}'); margin-bottom: 3px;"></header>
 
-        
         <div class="px-6 py-6">
             {% block content %}
             {% endblock %}
         </div>
         
-        <footer class="py-6 px-6 flex justify-between bg-lime-200">
+        <footer class="py-6 px-6 flex justify-between bg-lime-200 border border-gray-200">
             <div class="w-2/3 pr-10">
                 <h3 class="mb-5 font-semibold text-gray-600">We Did It!</h3>
                 <p class="text-lg text-gray-500">Copyright Yvette And Kate</p>
