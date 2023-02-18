@@ -24,10 +24,12 @@
                             <a href="{% url 'account:logout' %}" >Log Out</a></div>
                     </div>
                 {% else %}
-                    <div class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
-                        <a href="{% url 'account:signup' %}" >Sign Up</a></div>
-                    <div class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
-                        <a href="{% url 'account:login' %}" >Log In</a></div>
+                    <div class="flex justify-between gap-3 text-center">
+                        <div class="px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
+                            <a href="{% url 'account:signup' %}" >Sign Up</a></div>
+                        <div class="px-6 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="width:150px">
+                            <a href="{% url 'account:login' %}" >Log In</a></div>
+                    </div>
                 {% endif %}
             </div>
         </nav>

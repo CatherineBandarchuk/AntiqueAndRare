@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 from book.models import Book
+from account.models import CustomUser
 
 
 def index(request):
@@ -21,7 +22,12 @@ def index(request):
         else:
             books = Book.objects.none()
     else:
-        books = Book.objects.filter(available=True)
+        zipcode = request.GET.get('z')
+        if zipcode:
+            users = CustomUser.objects.filter(zipcode=zipcode)
+            books = Book.objects.filter(owner_user_id__in=users, available=True)
+        else:
+            books = Book.objects.filter(available=True)
     
     paginator = Paginator(books, 10)
     page_number = request.GET.get('page')
