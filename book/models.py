@@ -7,7 +7,6 @@ class AgeGroupCategory(models.Model):
         ordering = ('name',)
         verbose_name_plural = 'Age Group Categories'
 
-
     def __str__(self):
         return self.name
 

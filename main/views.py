@@ -45,3 +45,6 @@ def index(request):
 
 def about(request):
     return render( request, 'main/about.html')
+
+def terms(request):
+    return render( request, 'main/terms.html')

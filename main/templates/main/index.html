@@ -33,9 +33,18 @@
                                 </td>
                                 <tb class="py-6 text-center" style="float: right;">
                                     {% if request.user.is_authenticated%}
-                                        <div class="gap-3 py-6 mt-6"><a href="#" class=" px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Send Offer</a></div>
+                                        
+                                        {% if request.user == book.owner_user_id %}
+                                            <div class="py-6 mt-3"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Details...</a></div>
+                                            <div class="py-6 mt-3"><a href="{% url 'book:edit' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Edit Book</a></div>
+                                            <div class="py-6 mt-3"><a href="{% url 'book:delete' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:150px">Delete!</a></div>
+                                        {% else %}
+                                            <div class="gap-3 py-6 mt-6"><a href="#" class=" px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Send Offer</a></div>
+                                            <div class="gap-3 py-6 mt-6"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Details...</a></div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="gap-3 py-6 mt-6"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Details...</a></div>
                                     {% endif %}
-                                    <div class="gap-3 py-6 mt-6"><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Details...</a></div>
                                 </tb>
                             </tr>
                         </table>
