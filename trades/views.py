@@ -22,10 +22,11 @@ class BookListView(generic.ListView, LoginRequiredMixin):
     def post(self, request, pk):
         requested_book = get_object_or_404(Book, pk=pk)
         offering_book = get_object_or_404(Book, pk=request.POST['mybook'])
-        option = request.GET.get('allowchoose')
-        new_request = TradeRequest(
+        option = request.GET.get('allowchoose') or False
+        TradeRequest.objects.create(
             requested_book=requested_book,
             offering_book=offering_book,
             option=option
         )
-        return self.get(new_request)
+        return redirect('main:index')
+
