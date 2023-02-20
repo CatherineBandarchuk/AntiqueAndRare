@@ -14,45 +14,44 @@
                     <a href="?sort=title" id="title_sort" data-sort="title">Title ⬇️</a>
                     <a href="?sort=author" id="author_sort" data-sort="author">Author ⬇️</a>
                 </div>
-            
+                
                 <div class="mt-6 px-6 py-3 bg-white rounded-xl">
                     {% for book in page_obj %}
-                    <div class="rounded-xl border border-gray-200 p-2">
-                        <table>
-                            <tr>
-                                <td style="float: left;">
-                                    {% if book.image %}
-                                        <a href="{% url 'book:detail' book.id %}"><img src="{{ book.image.url }}" width="230" height="300" class="rounded-t-xl" style="padding-right: 50px;"></a>
+                        <div class="rounded-xl border border-gray-200 p-2 flex justify-between">
+                            <div style="float: left; width:20%">
+                                {% if book.image %}
+                                    <a href="{% url 'book:detail' book.id %}"><img src="{{ book.image.url }}" width="230" height="300" class="rounded-t-xl"></a>
+                                {% else %}
+                                    <a href="{% url 'book:detail' book.id %}"><img src="{% static 'main/images/default_image_book.jpg' %}" width="230" height="300" class="rounded-t-xl"></a>
+                                {% endif %}
+                            </div>
+
+                            <div class="px-8" style="float: left; width:60%">
+                                <h2 class="text-gray-800 text-2xl py-2">{{ book.title }}</h2>
+                                <h3 class="text-gray-500 px-3"><strong>Author: </strong>{{ book.author }}</h3>
+                                <h3 class="text-gray-500 px-3"><strong>Location: </strong>{{ book.owner_user_id.zipcode }}</h3>
+                                <h3 class="text-gray-500 px-3"><strong>Language: </strong>{{ book.language }}</h3>
+                                <h3 class="text-gray-500 px-3"><strong>Age Group: </strong>{{ book.age_group }}</h3>
+                                <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ book.genre }}</h3>
+                                <div class="text-gray-500 px-3"><h3><strong>Description: </strong>{{ book.description }}</h3></div>
+                                
+                            </div>
+
+                            <div class="gap-3 mt-3 py-2 text-center text-lg text-grey-400 font-semibold" style="float: right; width: 20%">
+                                {% if request.user.is_authenticated%}
+                                    {% if request.user == book.owner_user_id %}
+                                        <div><a href="{% url 'book:detail' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Details...</a></div>
+                                        <div><a href="{% url 'book:edit' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Edit Book</a></div>
+                                        <div><a href="{% url 'book:delete' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Delete!</a></div>
                                     {% else %}
-                                        <a href="{% url 'book:detail' book.id %}"><img src="{% static 'main/images/default_image_book.jpg' %}" width="230" height="300" class="rounded-t-xl" style="padding-right: 50px;"></a>
+                                        <div><a href="#" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Send Offer</a></div>
+                                        <div><a href="{% url 'book:detail' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Details...</a></div>
                                     {% endif %}
-                                </td>
-                                <td class="py-6">
-                                    <h2 class="text-gray-800 text-2xl py-3">{{ book.title }}</h2>
-                                    <h3 class="text-gray-500 px-3"><strong>Author: </strong>{{ book.author }}</h3>
-                                    <h3 class="text-gray-500 px-3"><strong>Language: </strong>{{ book.language }}</h3>
-                                    <h3 class="text-gray-500 px-3"><strong>Age Group: </strong>{{ book.age_group }}</h3>
-                                    <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ book.genre }}</h3>
-                                    <h3 class="text-gray-500 px-3"><strong>Description: </strong>{{ book.description }}</h3>
-                                    <h3 class="text-gray-500 px-3"><strong>Location: </strong>{{ book.owner_user_id.zipcode }}</h3>
-                                </td>
-                                <tb class="gap-3 mt-3 px-4 py-3 text-center text-lg text-grey-400 font-semibold" style="float: right; width: 20%">
-                                    {% if request.user.is_authenticated%}
-                                        {% if request.user == book.owner_user_id %}
-                                            <div><a href="{% url 'book:detail' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width: 100%">Details...</a></div>
-                                            <div><a href="{% url 'book:edit' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Edit Book</a></div>
-                                            <div><a href="{% url 'book:delete' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Delete!</a></div>
-                                        {% else %}
-                                            <div><a href="#" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Send Offer</a></div>
-                                            <div><a href="{% url 'book:detail' book.id %}" class="mt-3 gap-3 px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width:100%">Details...</a></div>
-                                        {% endif %}
-                                    {% else %}
-                                        <div><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:100%">Details...</a></div>
-                                    {% endif %}
-                                </tb>
-                            </tr>
-                        </table>
-                    </div>    
+                                {% else %}
+                                    <div><a href="{% url 'book:detail' book.id %}" class=" px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:100%">Details...</a></div>
+                                {% endif %}
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
 
@@ -78,6 +77,7 @@
 
         <div class="mt-12 px-6 bg-grey rounded-xl gap-3 border border-gray-200" style="float: left; width: 20%;">
             <form method="GET" >
+                <h2 class="mt-4 text-lg text-green-700"> Check all search parameters:</h2>
                 <div class = "py-6">
                     <p class="mt-3 block text-gray-700 font-bold mb-2 px-3"><input type="checkbox" name="zipcode_search" id="zipcode_search" value="False">  Enter zipcode to search local</p>
                     <input type="text" name="z" class=" mt-2 rounded-l-lg py-2 px-4 border border-gray-400" style="width: 100%" placeholder="Zip Code">
