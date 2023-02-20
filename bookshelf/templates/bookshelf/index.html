@@ -68,54 +68,51 @@
             </div>
         </div>
 
-    <div class="mt-12 px-6 py-3 bg-white rounded-xl gap-3 border border-gray-200" style="float: left; width: 20%;">
-        <div class="mt-6 px-4 py-3 text-lg font-semibold text-center bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white"><a href="{% url 'book:new' %}">Add Book</a></div>
-        <div class="mt-6 px-4 py-3 text-lg font-semibold text-center bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white"><a href="/">Back To Main</a></div>
-
-        <br><br>
-            <div>
+        <div class="mt-12 px-6 py-3 bg-white rounded-xl gap-3 border border-gray-200" style="float: left; width: 20%;">
+            <div class="mt-6 px-4 py-3 text-lg font-semibold text-center bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white"><a href="{% url 'book:new' %}">Add Book</a></div>
+            <div class="mt-6 px-4 py-3 text-lg font-semibold text-center bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white"><a href="/">Back To Main</a></div>
+                
                 <form method="GET" >
-                    <p class="mt-3 block text-gray-700 font-bold mb-2">Search by category</p>                    
-                    <input type="text" name="q" class=" mt-4 rounded-l-lg py-2 px-4 border border-gray-400" style="width: 100%" placeholder="Search...">
 
-                        <div class="mt-2 px-6">
-                            <input type="radio" id="title" name="category" value="title" checked>
-                            <label for="title">Title</label>
-                        </div>
-                        <div class="mt-2 px-6">
-                            <input type="radio" id="author" name="category" value="author">
-                            <label for="author">Author</label>
-                        </div>
-                        <div class="mt-2 px-6">
-                            <input type="radio" id="language" name="category" value="language">
-                            <label for="language">Language</label>
-                        </div>
-                        <div class="mt-2 px-6">
-                            <input type="radio" id="genre" name="category" value="genre">
-                            <label for="genre">Genre</label>
-                        </div>
-                        <div class="mt-2 px-6">
-                            <input type="radio" id="isbn" name="category" value="isbn">
-                            <label for="isbn">ISBN</label>
-                        </div>
-                        <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Search</button>
-                </form>
-            </div>
-            <br><br><br><br>
-            <div>
-                <form method="get">
-                    <div class="mb-4">
-                        <label for="age_group" class="block text-gray-700 font-bold mb-2">Choose By Age Group:</label>
-                        <select name="age_group" id="age_group" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="">All</option>
-                            {% for ag in age_group %}
-                            <option value="{{ ag.id }}" {% if age_group_filter == ag.id %}selected{% endif %}>{{ ag.name }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class = "py-6">                    
+                        <p class="mt-3 block text-gray-700 font-bold mb-2 px-3"><input type="checkbox" name="category_search" id="category_search" value="False"> Search by: </p>
+                        <input type="text" name="q" class=" mt-2 rounded-l-lg py-2 px-4 border border-gray-400" style="width: 100%" placeholder="Search...">
+
+                            <div class="mt-2 px-6">
+                                <input type="radio" id="title" name="category" value="title" checked>
+                                <label for="title">Title</label>
+                            </div>
+                            <div class="mt-2 px-6">
+                                <input type="radio" id="author" name="category" value="author">
+                                <label for="author">Author</label>
+                            </div>
+                            <div class="mt-2 px-6">
+                                <input type="radio" id="language" name="category" value="language">
+                                <label for="language">Language</label>
+                            </div>
+                            <div class="mt-2 px-6">
+                                <input type="radio" id="genre" name="category" value="genre">
+                                <label for="genre">Genre</label>
+                            </div>
+                            <div class="mt-2 px-6">
+                                <input type="radio" id="isbn" name="category" value="isbn">
+                                <label for="isbn">ISBN</label>
+                            </div>
                     </div>
-                    <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:150px">Find</button>
-                </form>
-            </div>
+
+                    <div class="py-6">
+                        <div class="mb-4">
+                            <label for="age_group" class="block text-gray-700 font-bold mb-2">Choose By Age Group:</label>
+                            <select name="age_group" id="age_group" class="mt-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="">All</option>
+                                {% for ag in age_group %}
+                                <option value="{{ ag.id }}" {% if age_group_filter == ag.id %}selected{% endif %}>{{ ag.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">Find Books!</button>
+            </form>
         </div>
     </div>
 {% endblock %}
