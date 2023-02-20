@@ -138,5 +138,8 @@ LOGIN_REDIRECT_URL = 'main:index'
 LOGOUT_REDIRECT_URL = 'main:index'
 
 # add account config file
-AUTH_USER_MODEL = 'account.CustomUser'import django_heroku
+AUTH_USER_MODEL = 'account.CustomUser'
+
+
+import django_heroku
 django_heroku.settings(locals())
