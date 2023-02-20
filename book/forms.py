@@ -5,7 +5,7 @@ from .models import Book, AgeGroupCategory
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        age_group = forms.ModelChoiceField(queryset=AgeGroupCategory.objects.all(), empty_label=None)
+        age_group = forms.ModelChoiceField(queryset=AgeGroupCategory.objects.all(), empty_label='Choose Age Group Category')
         fields = ('title', 'author', 'genre', 'language', 'isbn', 'age_group', 'image','description')
 
         widgets= {

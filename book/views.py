@@ -18,6 +18,9 @@ def new(request):
         if form.is_valid():
             book = form.save(commit=False)
             book.owner_user_id = request.user
+            book.author = book.author.capitalize()
+            book.title = book.title.capitalize()
+
             book.save()
 
             return redirect('book:detail', pk=book.id)
@@ -45,7 +48,7 @@ def edit(request, pk):
 
     return render(request, 'book/form.html', {
         'form': form,
-        'title': 'New Book',
+        'title': 'Edit Book',
     })
 
 
