@@ -19,15 +19,13 @@ class BookListView(generic.ListView, LoginRequiredMixin):
     def get_queryset(self):
         return Book.objects.filter(available=True, owner_user_id=self.request.user)
 
-    def trade(request, pk):
+    def post(self, request, pk):
         requested_book = get_object_or_404(Book, pk=pk)
-        bookshelf = Book.objects.filter(owner_user_id=request.user)
-        offering_book = bookshelf.filter(pk=request.POST['choice'])
-
+        offering_book = get_object_or_404(Book, pk=request.POST['mybook'])
+        option = request.GET.get('allowchoose')
         new_request = TradeRequest(
             requested_book=requested_book,
             offering_book=offering_book,
+            option=option
         )
-
-        new_request.save()
-        return render(request, 'bookshelf/templates/bookshelf/index.html')
+        return self.get(new_request)
