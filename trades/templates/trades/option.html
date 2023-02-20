@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-4 ">
+    <div class="col-span-1 px-6">
+        <img src="{{ book.image.url }}" class="rounded-xl border border-gray-200" style="width:100%">
+    </div>
+
+    <div class="col-span-3 bg-gray-100 rounded-xl py-3 px-6">
+        <h2 class="text-gray-800 text-2xl py-3">{{ book.title }}</h2>
+        <h3 class="text-gray-500 px-3"><strong>Author:  </strong>{{ book.author }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Language:  </strong>{{ book.language }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Age Group:  </strong>{{ book.age_group }}</h3>
+        <h3 class="text-gray-500 px-3"><strong>Genre:  </strong>{{ book.genre }}</h3>
+        {% if book.description %}
+        <h3 class="text-gray-500 px-3"><strong>Description:  </strong>{{ book.description }}</h3>
+        {% endif %}
+
+        {% if book.isbn %}
+        <h3 class="text-gray-500 px-3"><strong>ISBN: </strong>{{ book.isbn }}</h3>
+        {% endif %}
+        
+        <div class="mt-2er inl p-6 bg-white rounded-xl">
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
