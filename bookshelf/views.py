@@ -33,7 +33,6 @@ def index(request):
         elif category == 'isbn':
             books = books.filter(isbn__icontains=query)
 
-
     sort_by = request.GET.get('sort', '-added_at')
     if sort_by:
         books = books.order_by(sort_by)
