@@ -20,9 +20,9 @@ def new(request):
             book.owner_user_id = request.user
             book.author = book.author.capitalize()
             book.title = book.title.capitalize()
-
+            book.language = book.language.capitalize()
+            book.genre = book.genre.capitalize()
             book.save()
-
             return redirect('book:detail', pk=book.id)
     else:
         form = NewBookForm()

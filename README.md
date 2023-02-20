@@ -46,3 +46,12 @@ and
   python manage.py runserver
 
 10. Go to 'python manage.py runserver'
+
+11. Create Categories in admin mode. For do it:
+ - go to "url/admin"
+ - log in with super user account
+ - add categories by template: "number_of_category) name_of_category" sorted by age
+ - log out
+
+
+
