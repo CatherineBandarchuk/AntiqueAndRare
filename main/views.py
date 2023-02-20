@@ -38,7 +38,7 @@ def index(request):
     if sort_by:
         books = books.filter().order_by(sort_by)
     
-    paginator = Paginator(books, 10)
+    paginator = Paginator(books, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'main/index.html', {'page_obj': page_obj, 'age_group': age_group})
