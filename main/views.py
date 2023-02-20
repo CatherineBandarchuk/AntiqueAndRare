@@ -10,30 +10,62 @@ def index(request):
     zipcode_filter = request.GET.get('z')
     age_group = AgeGroupCategory.objects.all()
     age_group_filter = request.GET.get('age_group')
-
     category = request.GET.get('category', 'title')
-    if query:
-        if category == 'title':
-            books = Book.objects.filter(title__icontains=query, available=True)
-        elif category == 'author':
-            books = Book.objects.filter(author__icontains=query, available=True)
-        elif category == 'language':
-            books = Book.objects.filter(language__icontains=query, available=True)
-        elif category == 'genre':
-            books = Book.objects.filter(genre__icontains=query, available=True)
-        elif category == 'isbn':
-            books = Book.objects.filter(isbn__icontains=query, available=True)
-        else:
-            books = Book.objects.none()
-    elif zipcode_filter:
-        users = CustomUser.objects.filter(zipcode=zipcode_filter)
-        books = Book.objects.filter(owner_user_id__in=users, available=True)
-    elif age_group_filter:
-        if age_group_filter!='All':
-            books = Book.objects.filter(age_group=age_group_filter, available=True)
-    else:
-        books = Book.objects.filter(available=True)
     
+    zipcode_search_check = request.GET.get('zipcode_search')
+    category_search_check = request.GET.get('category_search')
+    
+    books = Book.objects.filter(available=True)
+
+    if age_group_filter:
+        if age_group_filter!='All':
+            books = books.filter(age_group=age_group_filter)
+            
+
+    if query and category_search_check:
+        if category == 'title':
+            books = books.filter(title__icontains=query)
+        elif category == 'author':
+            books = books.filter(author__icontains=query)
+        elif category == 'language':
+            books = books.filter(language__icontains=query)
+        elif category == 'genre':
+            books = books.filter(genre__icontains=query)
+        elif category == 'isbn':
+            books = books.filter(isbn__icontains=query)
+    
+    if zipcode_filter and zipcode_search_check:
+        users = CustomUser.objects.filter(zipcode=zipcode_filter)
+        books = books.filter(owner_user_id__in=users, available=True)
+
+
+
+    # category = request.GET.get('category', 'title')
+    # if query:
+    #     if category == 'title':
+    #         books = Book.objects.filter(title__icontains=query, available=True)
+    #     elif category == 'author':
+    #         books = Book.objects.filter(author__icontains=query, available=True)
+    #     elif category == 'language':
+    #         books = Book.objects.filter(language__icontains=query, available=True)
+    #     elif category == 'genre':
+    #         books = Book.objects.filter(genre__icontains=query, available=True)
+    #     elif category == 'isbn':
+    #         books = Book.objects.filter(isbn__icontains=query, available=True)
+    #     else:
+    #         books = Book.objects.none()
+    # elif zipcode_filter:
+    #     users = CustomUser.objects.filter(zipcode=zipcode_filter)
+    #     books = Book.objects.filter(owner_user_id__in=users, available=True)
+    # elif age_group_filter:
+    #     if age_group_filter!='All':
+    #         books = Book.objects.filter(age_group=age_group_filter, available=True)
+    # else:
+    #     books = Book.objects.filter(available=True)
+
+
+
+
     sort_by = request.GET.get('sort', '-added_at')
     if sort_by:
         books = books.filter().order_by(sort_by)
