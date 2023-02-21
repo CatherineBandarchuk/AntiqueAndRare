@@ -43,13 +43,14 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
         return TradeRequest.objects.filter(Q(offering_book__owner_user_id=self.request.user) | Q(requested_book__owner_user_id=self.request.user))
 
     def post(self, request, pk):
-        if request.POST.get('decline'):
-            #offering_book = get_object_or_404(Book, pk=request.POST)
-            #offering_book.available = True
-            #offering_book.save()
-            return render(request, 'trades/options.html', {})
-        else:
-            return render(request, 'trades/requests.html', {})
+        if request.method == "POST":
+            request_record = self.get_queryset()[0]
+            offering_book = request_record.offering_book
+            offering_book.available = True
+            offering_book.save()
+            request_record.status = 'closed'
+            request_record.save()
+            return redirect('trades:requests', pk)
 
 
 class OtherBookListView(generic.ListView, LoginRequiredMixin):
