@@ -66,10 +66,8 @@ class OtherBookListView(generic.ListView, LoginRequiredMixin):
 
     def post(self, request, pk):
         offering_book = get_object_or_404(Book, pk=request.POST['theirbook'])
-        # trade_request = TradeRequest.objects.filter(Q(offering_book__owner_user_id=offering_book.owner_user_id) & Q(requested_book__owner_user_id=request.user))
         trade_request = get_object_or_404(TradeRequest, Q(offering_book__owner_user_id=offering_book.owner_user_id) & Q(requested_book__owner_user_id=request.user))
         requested_book = trade_request.requested_book
-        
         trade_request.status = 'traded'
         trade_request.save()
         offering_book.available = False
