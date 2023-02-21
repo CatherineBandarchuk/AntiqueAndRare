@@ -10,25 +10,25 @@
             <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
                 <h2 class="mb-3 text-2xl text-center">Their Books</h2>
                 <div class="mt-6 px-6 py-3 bg-white rounded-xl">
-                    {% for book in other_book_list %}
+                    {% for theirbook in other_book_list %}
                     <div class="rounded-xl border border-gray-200 p-2 flex justify-between">
 
                         <div style="float: left; width:20%">
-                            {% if book.image %}
-                                <img src="{{ book.image.url }}" width="230" height="300" class="rounded-t-xl">
+                            {% if theirbook.image %}
+                                <img src="{{ theirbook.image.url }}" width="230" height="300" class="rounded-t-xl">
                             {% else %}
                                 <img src="{% static 'main/images/default_image_book.jpg' %}" width="230" height="300" class="rounded-t-xl">
                             {% endif %}
                         </div>
     
                         <div class="px-8" style="float: left; width:60%">
-                            <input type="radio" id="book{{ forloop.counter }}" name="book" value="{{ book.id }}" {% if forloop.first %}checked{% endif %}>
-                            <label for="book{{ forloop.counter }}" class="text-gray-800 text-2xl py-2">{{ book.title }}</label>
-                            <h3 class="text-gray-500 px-3"><strong>Author: </strong>{{ book.author }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Language: </strong>{{ book.language }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Age Group: </strong>{{ book.age_group }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ book.genre }}</h3>
-                            <div class="text-gray-500 px-3"><h3><strong>Description: </strong>{{ book.description }}</h3></div>
+                            <input type="radio" id="theirbook{{ forloop.counter }}" name="theirbook" value="{{ theirbook.id }}" {% if forloop.first %}checked{% endif %}>
+                            <label for="theirbook{{ forloop.counter }}" class="text-gray-800 text-2xl py-2">{{ theirbook.title }}</label>
+                            <h3 class="text-gray-500 px-3"><strong>Author: </strong>{{ theirbook.author }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Language: </strong>{{ theirbook.language }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Age Group: </strong>{{ theirbook.age_group }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ theirbook.genre }}</h3>
+                            <div class="text-gray-500 px-3"><h3><strong>Description: </strong>{{ theirbook.description }}</h3></div>
                         </div>
                     </div>
                     {% endfor %}

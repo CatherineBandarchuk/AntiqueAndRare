@@ -64,13 +64,14 @@ class OtherBookListView(generic.ListView, LoginRequiredMixin):
         return Book.objects.filter(Q(available=True) & Q(owner_user_id=self.kwargs.get('pk')))
 
     def post(self, request, pk):
-        offering_book = request.POST.get('book')
-        trade_request = TradeRequest.objects.filter(offering_book=offering_book)
+        offering_book = get_object_or_404(Book, pk=request.POST['theirbook'])
+        requested_book = trade_request.requested_book
+        trade_request = TradeRequest.objects.filter(Q(offering_book=offering_book) & Q(requested_book=requested_book))
+        
         trade_request.status = 'traded'
         trade_request.save()
         offering_book.available = False
         offering_book.save()
-        requested_book = trade_request.requested_book
         requested_book.available = False
         requested_book.save()
-        return redirect('trades:requests', pk)
+        return redirect('trades:requests')
