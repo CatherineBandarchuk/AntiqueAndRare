@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from .forms import CreateRequestForm
+from django.db.models import Q
 
 from .models import TradeRequest
 from book.models import Book
@@ -22,11 +21,40 @@ class BookListView(generic.ListView, LoginRequiredMixin):
     def post(self, request, pk):
         requested_book = get_object_or_404(Book, pk=pk)
         offering_book = get_object_or_404(Book, pk=request.POST['mybook'])
-        option = request.GET.get('allowchoose') or False
+        option = True if request.GET.get('allowchoose') else False
         TradeRequest.objects.create(
             requested_book=requested_book,
             offering_book=offering_book,
             option=option
         )
+        offering_book.available = False
+        offering_book.save()
         return redirect('main:index')
 
+
+class RequestsListView(generic.ListView, LoginRequiredMixin):
+    model = TradeRequest
+    context_object_name = 'request_list'
+    template_name = 'trades/requests.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return TradeRequest.objects.filter(Q(offering_book__owner_user_id=self.request.user) | Q(requested_book__owner_user_id=self.request.user))
+
+    def post(self, request, pk):
+        if request.POST.get('decline'):
+            offering_book = TradeRequest.objects.filter(offering_book=pk)
+            offering_book.available = True
+            offering_book.save()
+            return redirect('main:index')
+
+
+class OtherBookListView(generic.ListView, LoginRequiredMixin):
+    model = Book
+    success_url = reverse_lazy("main:index")
+    context_object_name = 'other_book_list'
+    template_name = 'trades/otheroption.html'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Book.objects.filter(available=True, owner_user_id=self.request.user)

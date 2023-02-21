@@ -1,0 +1,59 @@
+{% extends 'main/base.html'%}
+{% load static %}
+{% block title %} My Bookshelf {% endblock %}
+
+{% block content %}
+    <div class="flex justify-between">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 80%;">
+            <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
+                <h2 class="mb-3 text-2xl text-center">All Books</h2>
+                <div class="mt-6 px-6 py-3 bg-white rounded-xl">
+                    {% for mybook in other_book_list %}
+                    <div class="rounded-xl border border-gray-200 p-2 flex justify-between">
+                        <div style="float: left; width:20%">
+                            {% if mybook.image %}
+                                <img src="{{ mybook.image.url }}" width="230" height="300" class="rounded-t-xl">
+                            {% else %}
+                                <img src="{% static 'main/images/default_image_book.jpg' %}" width="230" height="300" class="rounded-t-xl">
+                            {% endif %}
+                        </div>
+    
+                        <div class="px-8" style="float: left; width:60%">
+                            <input type="radio" id="mybook{{ forloop.counter }}" name="mybook" value="{{ mybook.id }}" {% if forloop.first %}checked{% endif %}>
+                            <label for="mybook{{ forloop.counter }}" class="text-gray-800 text-2xl py-2">{{ mybook.title }}</label>
+                            <h3 class="text-gray-500 px-3"><strong>Author: </strong>{{ mybook.author }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Language: </strong>{{ mybook.language }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Age Group: </strong>{{ mybook.age_group }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Genre: </strong>{{ mybook.genre }}</h3>
+                            <div class="text-gray-500 px-3"><h3><strong>Description: </strong>{{ mybook.description }}</h3></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-6 px-6 py-6 bg-white rounded-xl">
+                    <div class="flex justify-between">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% else %}
+                            <span class="opacity-50 cursor-not-allowed">previous</span>
+                        {% endif %}
+            
+                        <div class="text-gray-500">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+            
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% else %}
+                            <span class="opacity-50 cursor-not-allowed">next</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="mt-12 px-6 bg-grey rounded-xl gap-3 border border-gray-200" style="float: left; width: 20%;">
+                <button type="button" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">Confirm My Selection</button>            </div>
+        </form>
+    </div>
+
+{% endblock %}
