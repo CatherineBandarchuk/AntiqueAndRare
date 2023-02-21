@@ -6,8 +6,8 @@ from book.models import Book
 
 
 class TradeRequest(models.Model):
-    requested_book = models.ForeignKey(Book, related_name = 'requested_book', on_delete=models.DO_NOTHING)
-    offering_book = models.ForeignKey(Book, related_name = 'offering_book', on_delete=models.DO_NOTHING)
+    requested_book = models.ForeignKey(Book, related_name = 'requested_book', on_delete=models.CASCADE)
+    offering_book = models.ForeignKey(Book, related_name = 'offering_book', on_delete=models.CASCADE)
     option = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     closed_at = models.DateTimeField(auto_now=True)

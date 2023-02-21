@@ -141,5 +141,5 @@ LOGOUT_REDIRECT_URL = 'main:index'
 AUTH_USER_MODEL = 'account.CustomUser'
 
 
-import django_heroku
-django_heroku.settings(locals())
+# import django_heroku
+# django_heroku.settings(locals())
