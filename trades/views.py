@@ -44,9 +44,9 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
 
     def post(self, request, pk):
         if request.POST.get('decline'):
-            offering_book = get_object_or_404(Book, pk=request.POST)
-            offering_book.available = True
-            offering_book.save()
+            #offering_book = get_object_or_404(Book, pk=request.POST)
+            #offering_book.available = True
+            #offering_book.save()
             return render(request, 'trades/options.html', {})
         else:
             return render(request, 'trades/requests.html', {})
