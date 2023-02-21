@@ -21,7 +21,8 @@ class BookListView(generic.ListView, LoginRequiredMixin):
     def post(self, request, pk):
         requested_book = get_object_or_404(Book, pk=pk)
         offering_book = get_object_or_404(Book, pk=request.POST['mybook'])
-        option = True if request.GET.get('allowchoose') else False
+        checked = request.POST.getlist('allowchoose')
+        option = True if checked else False
         TradeRequest.objects.create(
             requested_book=requested_book,
             offering_book=offering_book,
@@ -43,10 +44,12 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
 
     def post(self, request, pk):
         if request.POST.get('decline'):
-            offering_book = TradeRequest.objects.filter(offering_book=pk)
+            offering_book = get_object_or_404(Book, pk=request.POST)
             offering_book.available = True
             offering_book.save()
-            return redirect('main:index')
+            return render(request, 'trades/options.html', {})
+        else:
+            return render(request, 'trades/requests.html', {})
 
 
 class OtherBookListView(generic.ListView, LoginRequiredMixin):

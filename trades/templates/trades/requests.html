@@ -13,17 +13,20 @@
                         <div class="px-8" style="float: left; width:60%">
                             <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
                             <h3 class="text-gray-500 px-3"><strong>Requested User: </strong>{{ request.requested_book.owner_user_id }}</h3>
-                            {% if request.requested_book.owner_user_id == user %}
-                            <button class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
-                                <a href="{% url 'trades:selectother' request.offering_book.owner_user_id.id %}">Visit {{ request.offering_book.owner_user_id }}'s Bookshelf</a>
-                            </button>
-                            <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
+                            {% if request.requested_book.owner_user_id == user and request.requested_book.available %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <button class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
+                                    <a href="{% url 'trades:selectother' request.offering_book.owner_user_id.id %}">Visit {{ request.offering_book.owner_user_id }}'s Bookshelf</a>
+                                </button>
+                                <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
+                            </form>
                             {% endif %}
                             <h3 class="text-gray-500 px-3"><strong>Offering Book: </strong>{{ request.offering_book }}</h3>
                             <h3 class="text-gray-500 px-3"><strong>Offering User: </strong>{{ request.offering_book.owner_user_id }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Option: </strong>{{ request.option }}</h3>
+                            <h3 class="text-gray-500 px-3"><strong>Can View Bookshelf: </strong>{{ request.option }}</h3>
                             <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
-                            <h3 class="text-gray-500 px-3"><h3><strong>Closed At: </strong>{{ request.closed_at }}</h3>
+                            <h3 class="text-gray-500 px-3"><h3><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
                             <h3 class="text-gray-500 px-3"><h3><strong>Status: </strong>{{ request.status }}</h3>
                         </div>
                     </div>
