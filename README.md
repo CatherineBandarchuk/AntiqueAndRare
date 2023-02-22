@@ -58,7 +58,9 @@ and
 
 
 #####################################################
-Steps to Setup PostgreSQL (from sqlite3):
+
+
+*Steps to Setup PostgreSQL (from sqlite3):*
 1. move `.env` file to `book_trader/` directory (it should be done already after merging pr)
 2. install django-environ `pip install django-environ`
 3. install postgres `pip install psycopg2` (you probably already have it installed)
