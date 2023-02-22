@@ -71,12 +71,13 @@ and
   b) create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';
   c) grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
   d) Save the db name, username, and password for further use. 
-7. make migrations `python manage.py makemigrations`
-8. migrate `python manage.py migrate`, if encounter error saying `psycopg2.errors.UndefinedTable: relation "some table" does not exist`, migrate each app indivisually, then migrate again.
-9. run `python manage.py migrate --run-syncdb ` to make sure db is connected
-10. open python shell, `python manage.py shell`
+7. delete all your migration directories, and your sqlite3 db, and all the pycache directories.
+8. make migrations `python manage.py makemigrations`
+9. migrate `python manage.py migrate`, if encounter error saying `psycopg2.errors.UndefinedTable: relation "some table" does not exist`, migrate each app indivisually, then migrate again.
+10. run `python manage.py migrate --run-syncdb ` to make sure db is connected
+11. open python shell, `python manage.py shell`
   a)`>>>from django.contrib.contenttypes.models import ContentType`
   b)`>>>ContentType.objects.all().delete()
-11. load your saved data into new db `python manage.py loaddata whole.json`
-12. run python server `python manage.py runserver`
+12. load your saved data into new db `python manage.py loaddata whole.json`
+13. run python server `python manage.py runserver`
   
