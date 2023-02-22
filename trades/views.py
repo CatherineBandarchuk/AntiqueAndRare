@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -47,11 +47,18 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
         if request.method == "POST":
             request_record = self.get_queryset()[0]
             offering_book = request_record.offering_book
-            offering_book.available = True
-            offering_book.save()
-            request_record.status = 'closed'
+            if 'decline' in request.POST:
+                offering_book.available = True
+                request_record.status = 'closed'
+                offering_book.save()
+            elif 'accept' in request.POST:
+                requested_book = request_record.requested_book
+                requested_book.available = False
+                request_record.status = 'traded'
+                requested_book.save()
             request_record.save()
             return redirect('trades:requests', pk)
+
 
 
 class OtherBookListView(generic.ListView, LoginRequiredMixin):
@@ -70,9 +77,9 @@ class OtherBookListView(generic.ListView, LoginRequiredMixin):
             trade_request = get_object_or_404(TradeRequest, Q(offering_book__owner_user_id=offering_book.owner_user_id) & Q(requested_book__owner_user_id=request.user))
             requested_book = trade_request.requested_book
             trade_request.status = 'traded'
-            trade_request.save()
             offering_book.available = False
-            offering_book.save()
             requested_book.available = False
+            trade_request.save()
+            offering_book.save()
             requested_book.save()
             return redirect('trades:requests', pk)
