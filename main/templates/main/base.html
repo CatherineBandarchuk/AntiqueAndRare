@@ -19,7 +19,7 @@
                         <div class=" px-1 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width: 32%;">
                             <a href="{% url 'bookshelf:index' %}" >My Bookshelf</a></div>
                         <div class="px-1 py-3 text-lg font-semibold bg-lime-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width: 32%;">
-                            <a href="#" >Trades / Offers</a></div>
+                            <a href="{% url 'trades:requests' user.id %}" >Trades / Offers</a></div>
                         <div class="px-1 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-500 hover:text-white" style="float: right; width: 32%;">
                             <a href="{% url 'account:logout' %}" >Log Out</a></div>
                     </div>
