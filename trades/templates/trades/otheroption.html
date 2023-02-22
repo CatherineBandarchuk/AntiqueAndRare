@@ -7,8 +7,11 @@
     <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 80%;">
         <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
             <h2 class="mb-3 text-2xl text-center">Their Books:</h2>
+            {%if not book_list%}
+            <h2 class="text-red-800 text-xl px-4 text-center py-2">❗ No Other Books To Choose From</h2>
+            {%else%}
             <h3 class="mb-3 text-green-700 text-center">Choose another book you want to have instead the offered one.</h3>
-
+            {%endif%}
             <div class="flex gap-6 text-gray-500 px-3">
                 <p><strong>Sort By:</strong> </p>
                 <a href="href=?sort=-added_at" id="new_sort" data-sort="added_at">Newest ⬇️</a>
@@ -65,10 +68,11 @@
         </div>
 
         <div class="mt-12 p-6 bg-grey rounded-xl gap-3 border border-gray-200" style="float: left; width: 20%;">
+            {%if other_book_list%}
             <div>
-                <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">Confirm My Selection</button>
+                <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:100%">Confirm My Selection</button>
                 <a href="{% url 'trades:requests' request.user.id %}">
-                    <input type="button" name="redirecting" value="Not Interested" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">
+                    <input type="button" name="redirecting" value="Not Interested" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:100%">
                 </a>
                 </button>
             </div>
@@ -100,21 +104,25 @@
                             <input type="radio" id="isbn" name="category" value="isbn">
                             <label for="isbn">ISBN</label>
                         </div>
-                </div>
-
-                <div class="py-6">
-                    <div class="mb-4">
-                        <label for="age_group" class="block text-gray-700 font-bold mb-2">Choose By Age Group:</label>
-                        <select name="age_group" id="age_group" class="mt-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="">All</option>
-                            {% for ag in age_group %}
-                            <option value="{{ ag.id }}" {% if age_group_filter == ag.id %}selected{% endif %}>{{ ag.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">Find Books!</button>
-        </form> </div>
+                        <div class="py-6">
+                            <div class="mb-4">
+                                <label for="age_group" class="block text-gray-700 font-bold mb-2">Choose By Age Group:</label>
+                                <select name="age_group" id="age_group" class="mt-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    <option value="">All</option>
+                                    {% for ag in age_group %}
+                                    <option value="{{ ag.id }}" {% if age_group_filter == ag.id %}selected{% endif %}>{{ ag.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    <button type="submit" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:80%">Find Books!</button>
+                </form> 
+            </div>
+            {%else%}
+            <a href="{% url 'trades:requests' request.user.id %}">
+                <input type="button" name="redirecting" value="Go Back" class="mt-2 gap-8 px-8 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white" style="float: right; width:100%">
+            </a>
+            {%endif%}
         </div>
     </form>
 </div>

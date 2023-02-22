@@ -1,6 +1,21 @@
 # AntiqueAndRare
 Books Trading Platform
 
+AntiqueAndRare, a web application to trade the books in different languages, allows users to search books with given filters. 
+
+As a new user, you have ability to:
+Sign up (create account) specifying: languages, location (zip code) and other info.
+See the books in your area providing your zip code.
+A user can search for books by title, author, language, ISBN, Genre and Age group.
+ 
+After registration, you can to log in and:
+Add books to your bookshelf
+Edit and delete books from your bookshefl
+Search for books and sort according to Title, Author or Date(newest first).
+Send a “Request” for the right book to invite its owner to search your “bookshelf” or send a specific choice what you make. 
+Accept, Decline others' user requests for your book.
+
+We used: Django for full stack development process, HTML for frond-end and Postgres for Database
 
 Steps for run the project on server:
 1. Check that you have python installed using the following command:
@@ -52,32 +67,3 @@ and
  - log in with super user account
  - add categories by template: "number_of_category) name_of_category" sorted by age
  - log out
-
-
-
-
-
-#####################################################
-
-
-*Steps to Setup PostgreSQL (from sqlite3):*
-1. move `.env` file to `book_trader/` directory (it should be done already after merging pr)
-2. install django-environ `pip install django-environ`
-3. install postgres `pip install psycopg2` (you probably already have it installed)
-4. dump existing data to a json file `python manage.py dumpdata > whole.json` (optional)
-5. change `book_trader/settings.py` (already done)
-6. go to psql using `psql -U postgres`
-    1. create a new database `REATE DATABASE your_db_name;`
-    2. create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';`
-    3. grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
-    4. Save the db name, username, and password for further use. 
-7. delete all your migration directories, and your sqlite3 db, and all the pycache directories.
-8. make migrations `python manage.py makemigrations`
-9. migrate `python manage.py migrate`, if encounter error saying `psycopg2.errors.UndefinedTable: relation "some table" does not exist`, migrate each app indivisually, then migrate again.
-10. run `python manage.py migrate --run-syncdb ` to make sure db is connected
-11. open python shell, `python manage.py shell`
-    1. `>>>from django.contrib.contenttypes.models import ContentType`
-    2. `>>>ContentType.objects.all().delete()`
-12. load your saved data into new db `python manage.py loaddata whole.json`
-13. run python server `python manage.py runserver`
-  
