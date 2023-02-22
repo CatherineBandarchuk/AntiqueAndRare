@@ -55,3 +55,26 @@ and
 
 
 
+
+
+#####################################################
+Steps to Setup PostgreSQL (from sqlite3):
+1. move `.env` file to `book_trader/` directory (it should be done already after merging pr)
+2. install django-environ `pip install django-environ`
+3. install postgres `pip install psycopg2` (you probably already have it installed)
+4. dump existing data to a json file `python manage.py dumpdata > whole.json` (optional)
+5. change `book_trader/settings.py` (already done)
+6. go to psql using `psql -U postgres`
+  a) create a new database `REATE DATABASE your_db_name;`
+  b) create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';
+  c) grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
+  d) Save the db name, username, and password for further use. 
+7. make migrations `python manage.py makemigrations`
+8. migrate `python manage.py migrate`, if encounter error saying `psycopg2.errors.UndefinedTable: relation "some table" does not exist`, migrate each app indivisually, then migrate again.
+9. run `python manage.py migrate --run-syncdb ` to make sure db is connected
+10. open python shell, `python manage.py shell`
+  a)`>>>from django.contrib.contenttypes.models import ContentType`
+  b)`>>>ContentType.objects.all().delete()
+11. load your saved data into new db `python manage.py loaddata whole.json`
+12. run python server `python manage.py runserver`
+  
