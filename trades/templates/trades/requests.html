@@ -56,7 +56,7 @@
                                     <div class="px-8" style="float: left; width:50%">
                                         <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
-                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{ request.offering_book.owner_user_id.email }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{ request.offering_book.owner_user_id.email}}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Can View Bookshelf: </strong>{{ request.option }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
                                     </div>
@@ -127,6 +127,7 @@
                                     <div class="px-8" style="float: left; width:50%">
                                         <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{ request.requested_book.owner_user_id.email }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
                                     </div>
@@ -134,6 +135,7 @@
                                     <div class="px-8" style="float: right; width:50%">
                                         <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{ request.offering_book.owner_user_id.email}}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Can Choose Any Book on bookshelf: </strong>{{ request.option }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
                                     </div>
