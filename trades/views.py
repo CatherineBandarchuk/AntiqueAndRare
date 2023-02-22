@@ -49,14 +49,14 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
             offering_book = request_record.offering_book
             offering_book.available = True
             offering_book.save()
-            self.get_queryset().update(status='closed')
+            TradeRequest.objects.filter(Q(pk=request_record.id)| Q(requested_book__owner_user_id=self.request.user)).update(status='closed')
             return redirect('trades:requests', pk)
         elif 'accept' in request.POST:
             request_record = self.get_queryset()[0]
             requested_book = request_record.requested_book
             requested_book.available = False
             requested_book.save()
-            self.get_queryset().update(status='traded')
+            TradeRequest.objects.filter(Q(pk=request_record.id)| Q(requested_book__owner_user_id=self.request.user)).update(status='traded')
             return redirect('trades:requests', pk)
 
 
