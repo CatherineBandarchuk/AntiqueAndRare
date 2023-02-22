@@ -47,16 +47,16 @@ class RequestsListView(generic.ListView, LoginRequiredMixin):
         if 'decline' in request.POST:
             request_record = self.get_queryset()[0]
             offering_book = request_record.offering_book
-            TradeRequest.objects.filter(pk=request_record.id).update(status='closed')
             offering_book.available = True
             offering_book.save()
+            self.get_queryset().update(status='closed')
             return redirect('trades:requests', pk)
         elif 'accept' in request.POST:
             request_record = self.get_queryset()[0]
             requested_book = request_record.requested_book
-            TradeRequest.objects.filter(pk=request_record.id).update(status='traded')
             requested_book.available = False
             requested_book.save()
+            self.get_queryset().update(status='traded')
             return redirect('trades:requests', pk)
 
 
