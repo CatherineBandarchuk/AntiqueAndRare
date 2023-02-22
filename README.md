@@ -67,17 +67,17 @@ and
 4. dump existing data to a json file `python manage.py dumpdata > whole.json` (optional)
 5. change `book_trader/settings.py` (already done)
 6. go to psql using `psql -U postgres`
-  1. create a new database `REATE DATABASE your_db_name;`
-  2. create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';
-  3. grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
-  4. Save the db name, username, and password for further use. 
+    1. create a new database `REATE DATABASE your_db_name;`
+    2. create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';
+    3. grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
+    4. Save the db name, username, and password for further use. 
 7. delete all your migration directories, and your sqlite3 db, and all the pycache directories.
 8. make migrations `python manage.py makemigrations`
 9. migrate `python manage.py migrate`, if encounter error saying `psycopg2.errors.UndefinedTable: relation "some table" does not exist`, migrate each app indivisually, then migrate again.
 10. run `python manage.py migrate --run-syncdb ` to make sure db is connected
 11. open python shell, `python manage.py shell`
-  1. `>>>from django.contrib.contenttypes.models import ContentType`
-  2. `>>>ContentType.objects.all().delete()
+    1. `>>>from django.contrib.contenttypes.models import ContentType`
+    2. `>>>ContentType.objects.all().delete()`
 12. load your saved data into new db `python manage.py loaddata whole.json`
 13. run python server `python manage.py runserver`
   
