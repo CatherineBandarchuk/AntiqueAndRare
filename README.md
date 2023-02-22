@@ -68,7 +68,7 @@ and
 5. change `book_trader/settings.py` (already done)
 6. go to psql using `psql -U postgres`
     1. create a new database `REATE DATABASE your_db_name;`
-    2. create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';
+    2. create a new user `CREATE USER your_name WITH ENCRYPTED PASSWORD 'your_password';`
     3. grant all access to this user `GRANT ALL PRIVILEGES ON DATABASE antique_and_rare TO your_name;`
     4. Save the db name, username, and password for further use. 
 7. delete all your migration directories, and your sqlite3 db, and all the pycache directories.
