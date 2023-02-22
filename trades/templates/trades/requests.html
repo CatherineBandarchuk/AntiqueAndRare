@@ -4,53 +4,142 @@
 
 {% block content %}
     <div class="flex justify-between">
-        <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 80%;">
+        <div class="mt-6 px-6 bg-white rounded-xl gap-3" style="float: left; width: 100%;">
             <div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
                 <h2 class="mb-3 text-2xl text-center">All Requests</h2>
+                <h3 class="mb-3 text-grey-600 text-center">On this page you will find all: <text class="text-yellow-600">income</text>, <text class="text-blue-600">outcome </text>, <text class="text-red-600">rejected</text> and <text class="text-green-600">approved </text>requests and offers.</h3>
+                
                 <div class="mt-6 px-6 py-3 bg-white rounded-xl">
                     {% for request in request_list %}
-                    <div class="rounded-xl border border-gray-200 p-2 flex justify-between">    
-                        <div class="px-8" style="float: left; width:60%">
-                            <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Requested For: </strong>{{ request.requested_book.owner_user_id }}</h3>
-                            <form method="post">
-                            {% csrf_token %}
-                            {% if request.requested_book.owner_user_id == user and request.requested_book.available and request.status == 'pending' and request.option == True %}
-                                <button class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
-                                    <a href="{% url 'trades:selectother' request.offering_book.owner_user_id.id %}">Visit {{ request.offering_book.owner_user_id }}'s Bookshelf</a>
-                                </button>
-                                <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
-                            {% elif request.requested_book.owner_user_id == user and request.requested_book.available and request.status == 'pending' and request.option == False %}
-                                <button type="submit" name="accept" class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Accept Trade</button>
-                                <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
+                    {% comment %} For outcoming requests: you sent the request first {% endcomment %}
+                        {% if request.offering_book.owner_user_id == user%}
+                            {% if request.status == 'pending'%}
+                                <div class="rounded-xl border border-blue-300 p-2 flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can Choose Any Book on bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                    </div>
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+                                </div>    
+                            {% elif request.status == 'closed'%}
+                            <div class="rounded-xl border border-red-300 p-2">
+                                <h3 class="text-red-700 text-center py-2">The offer rejected and closed.</h3>
+                                <div class="flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can View Bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                    </div>
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            {% elif request.status == 'traded'%}
+                            <div class="rounded-xl border border-green-300 p-2">
+                                <h3 class="text-green-700 text-center py-2">Your offer successfully accepted. Please contact each other by email and trade the books in 7 days.</h3>
+                                <div class="flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{ request.offering_book.owner_user_id.email }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can View Bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                    </div>
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Your e-mail: </strong>{{  request.requested_book.owner_user_id.email }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+                                </div>
+                            </div>
                             {% endif %}
-                            </form>
-                            <h3 class="text-gray-500 px-3"><strong>Offering Book: </strong>{{ request.offering_book }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Offering By: </strong>{{ request.offering_book.owner_user_id }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Can View Bookshelf: </strong>{{ request.option }}</h3>
-                            <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
-                            <h3 class="text-gray-500 px-3"><h3><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
-                            <h3 class="text-gray-500 px-3"><h3><strong>Status: </strong>{{ request.status }}</h3>
-                        </div>
-                    </div>
+                        {% comment %} For incoming requests: you recieved the request {% endcomment %}
+                        {% else %}
+                            {% if request.status == 'pending' %}
+                            <div class="rounded-xl border border-yellow-500 p-2">
+                                <h3 class="text-yellow-600 text-center py-2">Your action is needed. The sender of requestis waiting for your responce.</h3>
+                                <div class="flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can Choose Any Book on bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {% if request.option %}
+                                                <button class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
+                                                    <a href="{% url 'trades:selectother' request.offering_book.owner_user_id.id %}">Visit {{ request.offering_book.owner_user_id }}'s Bookshelf</a>
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" name="accept" class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Accept Trade</button>
+                                            {% endif %}
+                                            <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
+                                        </form>
+                                    </div>                                    
+                                </div>
+                            </div>    
+                            {% elif request.status == 'closed'%}
+                            <div class="rounded-xl border border-red-300 p-2">
+                                <h3 class="text-red-700 px-3">You rejected the offer.</h3>    
+                                <div class="flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can Choose Any Book on bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            {% elif request.status == 'traded'%}
+                            <div class="rounded-xl border border-green-300 p-2">
+                                <h3 class="text-green-700 px-3">You accepted the offer. Please contact each other by email and trade the books in 7 days.</h3>
+                                <div class="flex justify-between">
+                                    <div class="px-8" style="float: left; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.requested_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
+                                    </div>
+
+                                    <div class="px-8" style="float: right; width:50%">
+                                        <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Can Choose Any Book on bookshelf: </strong>{{ request.option }}</h3>
+                                        <h3 class="text-gray-500 px-3"><strong>Created At: </strong>{{ request.created_at }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
-                </div>
-                <div class="mt-6 px-6 py-6 bg-white rounded-xl">
-                    <div class="flex justify-between">
-                        {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                        {% else %}
-                            <span class="opacity-50 cursor-not-allowed">previous</span>
-                        {% endif %}
-            
-                        <div class="text-gray-500">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
-            
-                        {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}">next</a>
-                        {% else %}
-                            <span class="opacity-50 cursor-not-allowed">next</span>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
         </div>
