@@ -14,7 +14,9 @@
                     {% comment %} For outcoming requests: you sent the request first {% endcomment %}
                         {% if request.offering_book.owner_user_id == user%}
                             {% if request.status == 'pending'%}
-                                <div class="rounded-xl border border-blue-300 p-2 flex justify-between">
+                            <div class="rounded-xl border border-blue-300 p-2">
+                                <h3 class="text-blue-700 text-center py-2">You Sent A Request.</h3>
+                                <div class="flex justify-between">
                                     <div class="px-8" style="float: left; width:50%">
                                         <h3 class="text-gray-500 px-3"><strong>Offered Book: </strong>{{ request.offering_book }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Owner Of The Book: </strong>{{ request.offering_book.owner_user_id }}</h3>
@@ -27,7 +29,8 @@
                                         <h3 class="text-gray-500 px-3"><strong>Last Change At: </strong>{{ request.closed_at }}</h3>
                                         <h3 class="text-gray-500 px-3"><strong>Status: </strong>{{ request.status }}</h3>
                                     </div>
-                                </div>    
+                                </div>
+                            </div>    
                             {% elif request.status == 'closed'%}
                             <div class="rounded-xl border border-red-300 p-2">
                                 <h3 class="text-red-700 text-center py-2">The offer rejected and closed.</h3>
@@ -88,12 +91,11 @@
                                         <form method="post">
                                             {% csrf_token %}
                                             {% if request.option %}
-                                                <button class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
+                                                <button class="mt-3 px-4 py-3 text-lg font-semibold bg-blue-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">
                                                     <a href="{% url 'trades:selectother' request.offering_book.owner_user_id.id %}">Visit {{ request.offering_book.owner_user_id }}'s Bookshelf</a>
                                                 </button>
-                                            {% else %}
-                                                <button type="submit" name="accept" class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Accept Trade</button>
                                             {% endif %}
+                                            <button type="submit" name="accept" class="mt-3 px-4 py-3 text-lg font-semibold bg-green-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Accept Trade</button>
                                             <button type="submit" name="decline" class="mt-3 px-4 py-3 text-lg font-semibold bg-red-200 text-grey-400 rounded-xl border-b border-gray-300 hover:bg-gray-600 hover:text-white">Decline Trade</button>
                                         </form>
                                     </div>                                    
@@ -101,7 +103,7 @@
                             </div>    
                             {% elif request.status == 'closed'%}
                             <div class="rounded-xl border border-red-300 p-2">
-                                <h3 class="text-red-700 px-3">You rejected the offer.</h3>    
+                                <h3 class="text-red-700 text-center py-2">You rejected the offer.</h3>    
                                 <div class="flex justify-between">
                                     <div class="px-8" style="float: left; width:50%">
                                         <h3 class="text-gray-500 px-3"><strong>Requested Book: </strong>{{ request.requested_book }}</h3>
